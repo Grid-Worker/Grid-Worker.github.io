@@ -194,7 +194,7 @@
       background-size: 20px 20px;
       background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
       overflow: hidden; display: flex; align-items: center; justify-content: center;
-      touch-action: none; /* 모바일 터치 제스처 활성화 */
+      touch-action: none; 
     }
     .canvas-container.erase-cursor { cursor: crosshair !important; }
     .canvas-container.point-erase-cursor { cursor: no-drop !important; }
@@ -346,11 +346,11 @@
     </div>
 
     <div class="toolbar-footer">
-      <div>Total Visits</div>
-      <a href="https://github.com/Grid-Worker/cutline-maker" target="_blank">
-        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2FGrid-Worker.github.io%2Fcutline-maker&count_bg=%232563EB&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" alt="hits"/>
+      <div style="margin-bottom:4px;">Total Visits</div>
+      <a href="https://hits.sh/grid-worker.github.io/cutline-maker/" target="_blank">
+        <img alt="Hits" src="https://hits.sh/grid-worker.github.io/cutline-maker.svg?style=flat-square&label=Visits&color=2563eb"/>
       </a>
-      <div style="font-size:0.7rem; opacity:0.5; margin-top:4px;">© 2025 CUTLINE PRO</div>
+      <div style="font-size:0.7rem; opacity:0.5; margin-top:6px;">© 2025 CUTLINE PRO</div>
     </div>
   </aside>
 
@@ -388,7 +388,7 @@
 </main>
 
 <script>
-/* CUTLINE PRO Logic Final - Hits & Mobile Fixed */
+/* CUTLINE PRO Logic v6.0 - Full Features + Hits.sh */
 
 const canvas = document.getElementById('mainCanvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
