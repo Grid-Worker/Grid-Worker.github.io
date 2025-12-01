@@ -2,22 +2,23 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>CUTLINE PRO | 무료 굿즈 칼선·스티커 재단선 생성기</title>
+  <title>CUTLINE PRO · 굿즈 칼선 생성기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   
   <meta name="description" content="설치 없이 브라우저에서 바로 스티커, 아크릴 굿즈용 칼선(재단선)을 만들어보세요. 이미지 배경 제거(누끼), 화이트 레이어 생성, 외곽선 따기 기능을 무료로 제공합니다.">
-  <meta name="keywords" content="칼선 만들기, 칼선 생성기, 스티커 도안, 아크릴 키링 제작, 굿즈 제작, 누끼 따기 사이트, 배경 제거, 오프셋, 화이트 인쇄, 다이컷, png 변환, cutline generator">
+  <meta name="keywords" content="칼선 만들기, 칼선 생성기, 스티커 도안, 아크릴 키링 제작, 굿즈 제작, 누끼 따기 사이트, 배경 제거, 오프셋, 화이트 인쇄, 다이컷, png 변환">
   <meta name="author" content="CUTLINE PRO">
   <meta name="robots" content="index, follow">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="CUTLINE PRO - 초간편 굿즈 칼선 생성기">
-  <meta property="og:description" content="이미지만 올리면 끝! 배경 제거부터 칼선 생성까지 3초 완성. 스티커/아크릴 굿즈 제작 필수 도구.">
-  <meta property="og:image" content="https://example.com/your-thumbnail-image.png"> <meta property="og:url" content="https://your-website-url.com"> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+  <meta property="og:description" content="이미지만 올리면 끝! 배경 제거부터 칼선 생성까지 3초 완성.">
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
 
   <style>
     :root {
-      /* --- Light Theme Variables --- */
+      /* Light Theme Variables */
       --bg-app: #f3f4f6;       
       --bg-panel: #ffffff;     
       --primary: #2563eb;      
@@ -29,7 +30,6 @@
       --radius: 10px;
       
       --header-h: 56px;
-      --banner-h: 100px;
       --font-mono: "JetBrains Mono", "Consolas", monospace;
     }
 
@@ -45,29 +45,33 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      user-select: none;
+      touch-action: none; /* 모바일 브라우저 기본 제스처 차단 */
     }
 
     /* --- Header --- */
     header {
       height: var(--header-h);
-      padding: 0 24px;
+      padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: var(--bg-panel);
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
-      z-index: 30;
+      z-index: 40;
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
-    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.5px; color: #111; }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; color: #111; }
     .brand span { color: var(--primary); }
     .status-badge { font-size: 0.8rem; color: var(--text-sub); }
 
     /* --- Main Layout --- */
     main {
-      flex: 1; display: flex; overflow: hidden; position: relative;
-      height: calc(100vh - var(--header-h) - var(--banner-h));
+      flex: 1; 
+      display: flex; 
+      overflow: hidden; 
+      position: relative;
     }
 
     /* --- Sidebar (Toolbar) --- */
@@ -91,7 +95,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* --- Workspace (Center) --- */
+    /* --- Workspace (Center + Drop Zone) --- */
     .workspace {
       flex: 1;
       display: flex;
@@ -131,7 +135,7 @@
       color: #9ca3af; font-size: 0.85rem; background: #fff;
     }
 
-    /* Buttons */
+    /* UI Components */
     button {
       background: #fff; color: var(--text-main); border: 1px solid var(--border);
       padding: 10px 0; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
@@ -156,7 +160,6 @@
     .btn-row { display: flex; gap: 8px; }
     .btn-row > * { flex: 1; }
     
-    /* Inputs */
     input[type="range"] {
       width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px;
       -webkit-appearance: none; margin: 10px 0;
@@ -168,14 +171,12 @@
     }
     .input-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-sub); font-weight: 500; }
 
-    /* File Drop */
     .file-drop {
       display: block;
       border: 2px dashed #d1d5db; border-radius: var(--radius); 
       padding: 12px;
       text-align: center; cursor: pointer; color: var(--text-sub); font-size: 0.85rem;
       transition: 0.2s; background: #f9fafb;
-      user-select: none;
     }
     .file-drop:hover { border-color: var(--primary); color: var(--primary); background: #eff6ff; }
 
@@ -191,6 +192,7 @@
       background-size: 20px 20px;
       background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
       overflow: hidden; display: flex; align-items: center; justify-content: center;
+      touch-action: none; /* 중요: 브라우저 기본 터치 동작 방지 */
     }
     .canvas-container.erase-cursor { cursor: crosshair !important; }
     .canvas-container.point-erase-cursor { cursor: no-drop !important; }
@@ -322,7 +324,8 @@
 
       <div style="font-size:0.75rem; color:var(--text-sub); margin-top:10px; line-height:1.5;">
         * <strong style="color:var(--accent)">마우스 커서가 바뀔 때</strong> 점 추가<br>
-        * <kbd>Space</kbd> + <strong>마우스 휠 클릭</strong>으로 화면 이동
+        * <kbd>Space</kbd> + <strong>마우스 휠 클릭</strong>으로 화면 이동<br>
+        * <strong>모바일:</strong> 한 손가락 이동, 두 손가락 확대
       </div>
     </div>
 
@@ -375,7 +378,7 @@
 </main>
 
 <script>
-/* CUTLINE PRO Logic v4.7 - SEO, AdSense, UI Fixes */
+/* CUTLINE PRO Logic v5.0 - Mobile Support & Touch Gestures */
 
 const canvas = document.getElementById('mainCanvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -409,6 +412,10 @@ let pointEraserMode = false;
 let isPanning = false;
 let startPan = {x:0, y:0};
 let snapInfo = null; 
+
+// Touch State
+let initialPinchDistance = null;
+let lastScale = 1;
 
 // --- Helper ---
 function resetTools() {
@@ -515,7 +522,7 @@ canvasContainer.addEventListener('wheel', e => {
   e.preventDefault(); scale *= e.deltaY > 0 ? 0.9 : 1.1; updateTransform();
 }, {passive: false});
 
-// Pan
+// Pan (Desktop)
 window.addEventListener('keydown', e => {
   if(e.code === 'Space') {
     canvasContainer.classList.add('panning');
@@ -539,10 +546,52 @@ window.addEventListener('mouseup', () => {
   isPanning = false; if(!event.getModifierState('Space')) canvasContainer.classList.remove('panning'); 
 });
 
+/* --- Mobile Touch Handling (Pinch Zoom & Pan) --- */
+canvasContainer.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 1) {
+    // 1-Finger: Pan
+    isPanning = true;
+    startPan = { x: e.touches[0].clientX - translate.x, y: e.touches[0].clientY - translate.y };
+  } else if (e.touches.length === 2) {
+    // 2-Fingers: Pinch Zoom
+    isPanning = false; 
+    initialPinchDistance = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    lastScale = scale;
+  }
+}, { passive: false });
+
+canvasContainer.addEventListener('touchmove', (e) => {
+  e.preventDefault(); // Stop Browser Scroll
+
+  if (e.touches.length === 1 && isPanning) {
+    translate.x = e.touches[0].clientX - startPan.x;
+    translate.y = e.touches[0].clientY - startPan.y;
+    updateTransform();
+  } else if (e.touches.length === 2 && initialPinchDistance) {
+    const currentDistance = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const ratio = currentDistance / initialPinchDistance;
+    scale = lastScale * ratio;
+    updateTransform();
+  }
+}, { passive: false });
+
+canvasContainer.addEventListener('touchend', () => {
+  isPanning = false;
+  initialPinchDistance = null;
+});
+
 // --- Math ---
 function getLocalPos(e) {
   const rect = canvasWrapper.getBoundingClientRect();
-  return { x: (e.clientX - rect.left) / scale, y: (e.clientY - rect.top) / scale };
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return { x: (clientX - rect.left) / scale, y: (clientY - rect.top) / scale };
 }
 
 function getProjectedPoint(p, v, w) {
@@ -577,9 +626,21 @@ function findClosestSnap(pos) {
   return null;
 }
 
-// --- Interaction ---
+// --- Interaction (Mouse & Touch Click) ---
+// We handle 'mousedown' for desktop and rely on touch logic for mobile gestures.
+// For mobile TAP, we can use 'click' event which fires after a short tap.
+canvasWrapper.addEventListener('click', (e) => {
+  // Ignore clicks if panning or dragging occurred
+  if(isPanning) return;
+});
+
 canvasWrapper.addEventListener('mousedown', (e) => {
   if (!img.src || isPanning || e.button !== 0 || e.getModifierState('Space')) return;
+  
+  handleAction(e);
+});
+
+function handleAction(e) {
   const pos = getLocalPos(e);
 
   if (pointEraserMode) {
@@ -621,7 +682,7 @@ canvasWrapper.addEventListener('mousedown', (e) => {
     }
     renderOverlay();
   }
-});
+}
 
 window.addEventListener('mousemove', e => {
   if (!img.src || isPanning || isDraggingPoint > -1) {
@@ -779,7 +840,7 @@ document.getElementById('autoOutlineBtn').addEventListener('click', () => {
 document.getElementById('closePathBtn').addEventListener('click', ()=>{ resetTools(); isClosed=true; renderOverlay(); });
 document.getElementById('resetPointsBtn').addEventListener('click', ()=>{ resetTools(); points=[]; originalPoints=[]; isClosed=false; renderOverlay(); });
 
-// --- Smooth Points ---
+// --- Smooth Points Function ---
 function smoothPoints(pts, iterations) {
     if (iterations <= 0) return pts;
     let curr = [...pts];
@@ -901,6 +962,23 @@ function updateUI() {
   document.getElementById('redoBtn').disabled = historyStep >= historyStack.length - 1;
 }
 
+// --- Security Scripts ---
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+  alert('보안을 위해 우클릭을 사용할 수 없습니다.');
+});
+
+document.addEventListener('keydown', function (e) {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+    (e.ctrlKey && e.key === 'U')
+  ) {
+    e.preventDefault();
+    alert('소스 코드 보기는 비활성화되어 있습니다.');
+  }
+});
 </script>
 </body>
 </html>
