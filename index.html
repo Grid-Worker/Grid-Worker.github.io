@@ -13,12 +13,13 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="CUTLINE PRO - 초간편 굿즈 칼선 생성기">
   <meta property="og:description" content="이미지만 올리면 끝! 배경 제거부터 칼선 생성까지 3초 완성.">
-  <meta property="og:url" content="https://your-website-url.com">
+  <meta property="og:url" content="https://Grid-Worker.github.io/cutline-maker">
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
 
   <style>
     :root {
+      /* Light Theme Variables */
       --bg-app: #f3f4f6;       
       --bg-panel: #ffffff;     
       --primary: #2563eb;      
@@ -45,14 +46,14 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      user-select: none; /* 텍스트 선택 방지 */
-      touch-action: none; /* 모바일 제스처 충돌 방지 */
+      user-select: none;
+      touch-action: none; 
     }
 
     /* --- Header --- */
     header {
       height: var(--header-h);
-      padding: 0 16px;
+      padding: 0 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -62,7 +63,7 @@
       z-index: 40;
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
-    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; color: #111; }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.5px; color: #111; }
     .brand span { color: var(--primary); }
     .status-badge { font-size: 0.8rem; color: var(--text-sub); }
 
@@ -72,7 +73,7 @@
       height: calc(100vh - var(--header-h));
     }
 
-    /* --- Sidebar --- */
+    /* --- Sidebar (Toolbar) --- */
     .toolbar {
       width: 300px;
       background: var(--bg-panel);
@@ -93,7 +94,20 @@
       letter-spacing: 0.5px;
     }
 
-    /* --- Workspace --- */
+    /* Footer in Sidebar */
+    .toolbar-footer {
+      margin-top: auto; /* Push to bottom */
+      padding-top: 20px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    /* --- Workspace (Center + Drop Zone) --- */
     .workspace {
       flex: 1;
       display: flex;
@@ -105,11 +119,13 @@
 
     .workspace.drag-active::after {
       content: '📂 이미지를 놓아서 불러오기';
-      position: absolute; inset: 20px; border: 4px dashed var(--primary); border-radius: 20px;
+      position: absolute; inset: 20px;
+      border: 4px dashed var(--primary); border-radius: 20px;
       background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; font-weight: 800; color: var(--primary);
-      z-index: 100; pointer-events: none; box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+      z-index: 100; pointer-events: none;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
     }
 
     /* AD Banner */
@@ -128,16 +144,23 @@
       background: #fff; color: var(--text-main); border: 1px solid var(--border);
       padding: 10px 0; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
       display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;
-      transition: all 0.15s; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      transition: all 0.15s; font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
     button:hover { background: #f9fafb; border-color: #d1d5db; transform: translateY(-1px); }
     button:active { transform: translateY(0); }
     
-    button.primary { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
+    button.primary {
+      background: var(--primary); border-color: var(--primary); color: #fff;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    }
     button.primary:hover { background: var(--primary-hover); }
-    button.active { background: #eff6ff; border-color: var(--primary); color: var(--primary); }
-    button.sm { font-size: 0.8rem; padding: 8px 0; font-weight: 500; }
     
+    button.active {
+      background: #eff6ff; border-color: var(--primary); color: var(--primary);
+    }
+    
+    button.sm { font-size: 0.8rem; padding: 8px 0; font-weight: 500; }
     .btn-row { display: flex; gap: 8px; }
     .btn-row > * { flex: 1; }
     
@@ -153,8 +176,8 @@
     .input-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-sub); font-weight: 500; }
 
     .file-drop {
-      display: block; border: 2px dashed #d1d5db; border-radius: var(--radius); padding: 12px;
-      text-align: center; cursor: pointer; color: var(--text-sub); font-size: 0.85rem;
+      display: block; border: 2px dashed #d1d5db; border-radius: var(--radius); 
+      padding: 12px; text-align: center; cursor: pointer; color: var(--text-sub); font-size: 0.85rem;
       transition: 0.2s; background: #f9fafb; user-select: none;
     }
     .file-drop:hover { border-color: var(--primary); color: var(--primary); background: #eff6ff; }
@@ -171,8 +194,7 @@
       background-size: 20px 20px;
       background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
       overflow: hidden; display: flex; align-items: center; justify-content: center;
-      /* 중요: 모바일 터치 액션 제어 */
-      touch-action: none; 
+      touch-action: none; /* 모바일 터치 제스처 활성화 */
     }
     .canvas-container.erase-cursor { cursor: crosshair !important; }
     .canvas-container.point-erase-cursor { cursor: no-drop !important; }
@@ -322,6 +344,14 @@
         <input type="color" id="lineColorInput" value="#ef4444" style="border:1px solid #ddd; width:50px; height:24px; cursor:pointer; padding:0; border-radius:4px;">
       </div>
     </div>
+
+    <div class="toolbar-footer">
+      <div>Total Visits</div>
+      <a href="https://github.com/Grid-Worker/cutline-maker" target="_blank">
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2FGrid-Worker.github.io%2Fcutline-maker&count_bg=%232563EB&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" alt="hits"/>
+      </a>
+      <div style="font-size:0.7rem; opacity:0.5; margin-top:4px;">© 2025 CUTLINE PRO</div>
+    </div>
   </aside>
 
   <div class="workspace" id="workspaceDropZone">
@@ -358,7 +388,7 @@
 </main>
 
 <script>
-/* CUTLINE PRO Logic v5.1 - Mobile Touch Fix */
+/* CUTLINE PRO Logic Final - Hits & Mobile Fixed */
 
 const canvas = document.getElementById('mainCanvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -526,14 +556,12 @@ window.addEventListener('mouseup', () => {
   isPanning = false; if(!event.getModifierState('Space')) canvasContainer.classList.remove('panning'); 
 });
 
-/* --- Mobile Touch Events (RE-ADDED) --- */
+/* --- Mobile Touch Events --- */
 canvasContainer.addEventListener('touchstart', (e) => {
   if (e.touches.length === 1) {
-    // 1 Finger: Pan
     isPanning = true;
     startPan = { x: e.touches[0].clientX - translate.x, y: e.touches[0].clientY - translate.y };
   } else if (e.touches.length === 2) {
-    // 2 Fingers: Zoom
     isPanning = false; 
     initialPinchDistance = Math.hypot(
       e.touches[0].clientX - e.touches[1].clientX,
@@ -544,8 +572,7 @@ canvasContainer.addEventListener('touchstart', (e) => {
 }, { passive: false });
 
 canvasContainer.addEventListener('touchmove', (e) => {
-  e.preventDefault(); // Stop browser scroll
-
+  e.preventDefault(); 
   if (e.touches.length === 1 && isPanning) {
     translate.x = e.touches[0].clientX - startPan.x;
     translate.y = e.touches[0].clientY - startPan.y;
@@ -569,7 +596,6 @@ canvasContainer.addEventListener('touchend', () => {
 // --- Math ---
 function getLocalPos(e) {
   const rect = canvasWrapper.getBoundingClientRect();
-  // Handle both mouse and touch events
   const clientX = e.touches ? e.touches[0].clientX : e.clientX;
   const clientY = e.touches ? e.touches[0].clientY : e.clientY;
   return { x: (clientX - rect.left) / scale, y: (clientY - rect.top) / scale };
@@ -610,6 +636,10 @@ function findClosestSnap(pos) {
 // --- Interaction ---
 canvasWrapper.addEventListener('mousedown', (e) => {
   if (!img.src || isPanning || e.button !== 0 || e.getModifierState('Space')) return;
+  handleAction(e);
+});
+
+function handleAction(e) {
   const pos = getLocalPos(e);
 
   if (pointEraserMode) {
@@ -651,7 +681,7 @@ canvasWrapper.addEventListener('mousedown', (e) => {
     }
     renderOverlay();
   }
-});
+}
 
 window.addEventListener('mousemove', e => {
   if (!img.src || isPanning || isDraggingPoint > -1) {
